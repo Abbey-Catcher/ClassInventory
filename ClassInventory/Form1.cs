@@ -14,7 +14,6 @@ namespace ClassInventory
     {
         // Global Variabales go here
         List<Player> players = new List<Player>();
-        //List<age> Age = new List<age>(new int[]);
 
         public Form1()
         {
@@ -24,29 +23,27 @@ namespace ClassInventory
         private void addButton_Click(object sender, EventArgs e)
         {
             string name, team, position;
-            int age = Convert.ToInt32(ageInput.Text);
+            int age;
 
             name = nameInput.Text;
             team = teamInput.Text;
             position = positionInput.Text;
+            age = Convert.ToInt32(ageInput.Text);
 
-            Player newPlayer = new Player(name, age, team, position);
-            newPlayer.name = name;
-
-            displayPlayers();
+            Player newPlayer = new Player(name, team, position, age);
+            players.Add(newPlayer);
         }
 
         private void removeButton_Click(object sender, EventArgs e)
         {
             foreach (Player p in players)
             {
-                if (p.name == nameInput.Text)
+                if (p.name == removeInput.Text)
                 {
                     players.Remove(p);
+                    break;
                 }
             }
-
-            displayPlayers();
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -55,14 +52,17 @@ namespace ClassInventory
             // Lambda Expressions. 
             //---------------------------
 
+            Player player = players.Find(n => n.name == nameInput.Text);
+
+            outputLabel.Text = "";
+            
+            outputLabel.Text += player.name;
+            //foreach (Player n in player)
+            
+            //Player p = players.Find(p => p.name == nameInput.Text);
         }
 
         private void showButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void displayPlayers()
         {
             outputLabel.Text = "";
 
